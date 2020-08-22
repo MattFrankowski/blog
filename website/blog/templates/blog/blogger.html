@@ -1,12 +1,18 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 {% block title %}
 {% endblock %}
 
+
 {% block content %}
-    <span class="blogger-name">{{blogger.name}}</span>
+    {% include "blog/navbar.html" %}
+    <div class="blogger-name">
+        <img class="profile-pic" src="{{ blogger.photo.url }}" alt="profile-pic">
+        {{blogger.name}}
+    </div>
     <div class="center-row">
     {% for post in posts %}
-        <p><a href="{% url 'post' post.id %}"/>{{post.title}}</p>
+        <p><a href="{% url 'post' post.author.id post.id %}"/>{{post.title}}</p>
     {% endfor %}
     </div>
 {% endblock %}

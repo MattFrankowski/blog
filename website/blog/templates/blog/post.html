@@ -7,8 +7,8 @@
         <div class="date-created">
             {{ post.date_created }}
         </div>
-    <button type="button" class="btn btn-dark">Back</button>
-    <button type="button" class="btn btn-info">Update</button>
-    <button type="button" class="btn btn-danger">Delete</button>
+    <a type="button" class="btn btn-dark" href="{% url 'blogger' post.author.id %}">Back</a>
+    <a type="button" class="btn btn-info" href="{% url 'update_post' post.author.id post.id %}">Update</a>
+    <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.author.id post.id %}">Delete</a>
     </div>
 {% endblock %}
