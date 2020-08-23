@@ -2,9 +2,17 @@
 {% load static %}
 {% block content %}
     <div class="title-row">Create Post</div>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
+        {{ postForm }}
+
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <br>
+            {{ form }}
+        {% endfor %}
+        <br>
+
         <input class="btn btn-info" type="submit" name="Create Post">
     </form>
 {% endblock %}
