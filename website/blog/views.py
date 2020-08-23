@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Blogger, Post
-from .forms import PostForm
+from django.forms import modelformset_factory
+from django.contrib import messages
+
+from .models import Blogger, Post, PostImages
+from .forms import PostForm, PostImagesForm
 
 
 def homePage(request):
@@ -32,16 +35,42 @@ def postPage(request, pk, post_id):
 
 def createPost(request, pk):
     blogger = Blogger.objects.get(id=pk)
-    form = PostForm(initial={'author': blogger})
+
+    postForm = PostForm(initial={'author': blogger})
 
     if request.method == "POST":
-        form = PostForm(request.POST, initial={'author': blogger})
-        if form.is_valid():
-            form.save()
+
+        postForm = PostForm(request.POST)
+        if postForm.is_valid():
+            postForm.save()
             return redirect(f"/blogger/{pk}")
 
+    ImageFormSet = modelformset_factory(PostImages, form=PostImagesForm, extra=3)
+
+    formset = ImageFormSet(queryset=PostImages.objects.none())
+    postForm = PostForm(initial={'author': blogger})
+
+    if request.method == "POST":
+        postForm = PostForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES, queryset=PostImages.objects.none())
+        if postForm.is_valid() and formset.is_valid():
+            postForm.save()
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['image']
+                    photo = PostImages(post=postForm, image=image)
+                    photo.save()
+                messages.success(request, "Photos added")
+                return redirect(f"/blogger/{pk}")
+            else:
+                print(postForm.errors, formset.errors)
+        else:
+            postForm = PostForm()
+            formset = ImageFormSet(queryset=PostImages.objects.none())
+
     context = {
-        'form': form,
+        'postForm': postForm,
+        'formset': formset,
     }
     return render(request, 'blog/create_post.html', context)
 
@@ -59,7 +88,7 @@ def updatePage(request, pk, post_id):
     context = {
         'form': form,
     }
-    return render(request, 'blog/create_post.html', context)
+    return render(request, 'blog/update.html', context)
 
 
 def deletePage(request, pk, post_id):
