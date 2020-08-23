@@ -4,7 +4,10 @@
     <div class="title-row">Create Post</div>
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form }}
+        <p>Title{{ form.title }}</p>
+        <p>Content{{ form.content }}</p>
+        <p>Images{{ form.images }}</p>
+        {{ form.author.as_hidden }}
         <input class="btn btn-info" type="submit" name="Create Post">
     </form>
 {% endblock %}

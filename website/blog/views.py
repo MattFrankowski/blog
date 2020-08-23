@@ -35,7 +35,7 @@ def createPost(request, pk):
     form = PostForm(initial={'author': blogger})
 
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, initial={'author': blogger})
         if form.is_valid():
             form.save()
             return redirect(f"/blogger/{pk}")
