@@ -1,17 +1,22 @@
 from django.forms import ModelForm
-from .models import Post, Blogger, PostImages
+
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+from .models import Post, Blogger
 
 
 
 class PostForm(ModelForm):
     class Meta:
         model = Post
-
         fields = ['title', 'content', 'author']
 
 
 
-class PostImagesForm(ModelForm):
+class UserForm(UserCreationForm):
     class Meta:
-        model = PostImages
-        fields = ["image"]
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+

@@ -1,5 +1,10 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    Home
+    {% if user.is_authenticated %}
+        Hello {{ user.username }}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+       <p>Log in <a href="{% url 'login' %}">here</a></p>
+    {% endif %}
 {% endblock %}
