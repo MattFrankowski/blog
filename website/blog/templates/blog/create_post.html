@@ -4,18 +4,9 @@
     <div class="title-row">Create Post</div>
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <p>Title{{ postForm.title }}</p>
-        <p>Content{{ postForm.content }}</p>
-        {{ postForm.author.as_hidden }}
-
-
-        {{ formset.management_form }}
-        {% for form in formset %}
-            <br>
-            {{ form }}
-        {% endfor %}
-        <br>
+        <p>Title{{ form.title }}</p>
+        <p>Content{{ form.content }}</p>
+        {{ form.author.as_hidden }}
 
         <input class="btn btn-info" type="submit" name="Create Post">
     </form>

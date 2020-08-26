@@ -7,7 +7,7 @@
 </div>
 <form method="POST" action="{% url 'delete_post' post.author.id post.id %}">
     {% csrf_token %}
-    <div class="center-row">
+    <div class="item-row">
         <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
         <input class="btn btn-danger" type="submit" name="Confirm">
     </div>

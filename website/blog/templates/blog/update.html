@@ -4,8 +4,9 @@
     <div class="title-row">Update Post</div>
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form.title }}
-        {{ form.content }}
+        <p>Title{{ form.title }}</p>
+        <p>Content{{ form.content }}</p>
+
         {{ form.author.as_hidden }}
 
         <input class="btn btn-info" type="submit" name="Update Post">
