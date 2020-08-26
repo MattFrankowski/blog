@@ -11,6 +11,8 @@ urlpatterns = [
     path('blogger/<str:pk>/post/<str:post_id>/update', views.updatePage, name='update_post'),
     path('blogger/<str:pk>/post/<str:post_id>/delete', views.deletePage, name='delete_post'),
 
+    path('about/', views.aboutPage, name='about'),
+
     path('register/', views.registerPage, name='register'),
 
     path('user/<str:pk>', views.userPage, name='user'),

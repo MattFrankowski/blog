@@ -117,3 +117,10 @@ def createBlogPage(request, pk):
     return render(request, 'blog/create_blog.html', context)
 
 
+def aboutPage(request):
+    context = {
+
+    }
+    return render(request, "blog/about.html", context)
+
+
