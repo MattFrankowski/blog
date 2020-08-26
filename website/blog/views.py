@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
-
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 from .models import Blogger, Post
 from .forms import PostForm, UserForm
@@ -15,6 +12,7 @@ def homePage(request):
 
     }
     return render(request, 'blog/home.html', context)
+
 
 
 def bloggerPage(request, pk):
@@ -28,6 +26,7 @@ def bloggerPage(request, pk):
     return render(request, 'blog/blogger.html', context)
 
 
+@login_required(login_url='/login/')
 def postPage(request, pk, post_id):
     post = Post.objects.get(id=post_id)
 
@@ -37,6 +36,7 @@ def postPage(request, pk, post_id):
     return render(request, 'blog/post.html', context)
 
 
+@login_required(login_url='/login/')
 def createPost(request, pk):
     blogger = Blogger.objects.get(id=pk)
     form = PostForm(initial={'author': blogger})
@@ -53,6 +53,7 @@ def createPost(request, pk):
     return render(request, 'blog/create_post.html', context)
 
 
+@login_required(login_url='/login/')
 def updatePage(request, pk, post_id):
     post = Post.objects.get(id=post_id)
     form = PostForm(instance=post)
@@ -69,6 +70,7 @@ def updatePage(request, pk, post_id):
     return render(request, 'blog/update.html', context)
 
 
+@login_required(login_url='/login/')
 def deletePage(request, pk, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == "POST":
@@ -99,23 +101,19 @@ def registerPage(request):
     return render(request, 'registration/register.html', context)
 
 
-# def loginPage(request):
-#     form = UserForm()
-#     if request.method == "POST":
-#         username = request.POST.get("username")
-#         password = request.POST.get("password")
-#
-#         user = authenticate(request, username=username, password=password)
-#
-#         if user is not None:
-#             login(request, user)
-#             return redirect('home')
-#         else:
-#             message = messages.info(request, 'Username or password is incorrect')
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'blog/login.html', context)
+def userPage(request, pk):
+    user = User.objects.get(id=pk)
+    context = {
+        "user": user,
+    }
+    return render(request, 'blog/user.html', context)
 
+
+def createBlogPage(request, pk):
+    user = User.objects.get(id=pk)
+    context = {
+        "user": user,
+    }
+    return render(request, 'blog/create_blog.html', context)
 
 

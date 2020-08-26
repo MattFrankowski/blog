@@ -1,7 +1,26 @@
-<h2>Login</h2>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="container-fluid">
+        <h2>Login</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Username:</p>
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p>Password:</p>
+                {{ form.password }}
+            </div>
+        </div>
+    </div>
     <p>Forgot password? Reset it<a href="{% url 'password_reset' %}"> here</a></p>
+    {{ form.errors }}
   <button type="submit">Login</button>
 </form>
+{% endblock %}
