@@ -4,23 +4,26 @@
 
 <form method="post">
     {% csrf_token %}
-    <div class="container-fluid">
+    <div class="container-fluid login-container">
         <h2>Login</h2>
         <div class="row">
-            <div class="col-md-3">
-                <p>Username:</p>
+            <div class="col-md-4 padding">
                 {{ form.username }}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <p>Password:</p>
+            <div class="col-md-4 padding">
                 {{ form.password }}
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4 padding">
+                    <p>Forgot password? Reset it<a href="{% url 'password_reset' %}"> here</a></p>
+                    {{ form.errors }}
+                    <button type="submit">Login</button>
+            </div>
+        </div>
     </div>
-    <p>Forgot password? Reset it<a href="{% url 'password_reset' %}"> here</a></p>
-    {{ form.errors }}
-  <button type="submit">Login</button>
+
 </form>
 {% endblock %}
