@@ -20,9 +20,17 @@ class UserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-''' Override built-in Login Form '''
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=TextInput(attrs={'class': 'validate', 'placeholder': 'Email'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
+# ''' Override built-in Login Form '''
+# class LoginForm(AuthenticationForm):
+#     username = forms.CharField(widget=TextInput(attrs={'class': 'validate', 'placeholder': 'Email'}))
+#     password = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
+
+
+class BloggerForm(ModelForm):
+    class Meta:
+        model = Blogger
+        fields = "__all__"
+
+
 
 

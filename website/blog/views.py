@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .models import Blogger, Post
-from .forms import PostForm, UserForm
+from .forms import PostForm, UserForm, BloggerForm
 
 
 def homePage(request):
@@ -111,10 +111,25 @@ def userPage(request, pk):
 
 def createBlogPage(request, pk):
     user = User.objects.get(id=pk)
-    context = {
-        "user": user,
+
+    data = {
+        'user': user,
+        'email': user.email,
     }
-    return render(request, 'blog/create_blog.html', context)
+
+    bloggerForm = BloggerForm(initial=data)
+
+    if request.method == "POST":
+        bloggerForm = BloggerForm(request.POST)
+        if bloggerForm.is_valid():
+            bloggerForm.save()
+            return redirect("home")
+
+    context = {
+        "bloggerForm": bloggerForm,
+    }
+
+    return render(request, "blog/create_blog.html", context)
 
 
 def aboutPage(request):

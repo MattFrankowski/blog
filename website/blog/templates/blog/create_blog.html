@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ bloggerForm.name.label }}
+        {{ bloggerForm.name }}
+
+        {{ bloggerForm.photo.label }}
+        {{ bloggerForm.photo }}
+
+        {{ bloggerForm.user.as_hidden }}
+        {{ bloggerForm.email.as_hidden }}
+
+        <input class="btn btn-info" type="submit" name="Create Blog">
+    </form>
+{% endblock %}
