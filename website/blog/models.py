@@ -6,7 +6,7 @@ class Blogger(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField()
-    photo = models.ImageField(upload_to="", default="unnamed.png", blank=True, null=True)
+    photo = models.ImageField(upload_to="profile_pics", default="profile_pics/unnamed.png", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
