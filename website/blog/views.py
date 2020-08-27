@@ -120,7 +120,7 @@ def createBlogPage(request, pk):
     bloggerForm = BloggerForm(initial=data)
 
     if request.method == "POST":
-        bloggerForm = BloggerForm(request.POST)
+        bloggerForm = BloggerForm(request.POST, request.FILES)
         if bloggerForm.is_valid():
             bloggerForm.save()
             return redirect("home")
