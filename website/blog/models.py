@@ -17,7 +17,6 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.CharField(max_length=10000)
     author = models.ForeignKey(Blogger, on_delete=models.CASCADE)
-    # media = models.ImageField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -16,8 +16,8 @@ def homePage(request):
 
 
 
-def bloggerPage(request, pk):
-    blogger = Blogger.objects.get(id=pk)
+def bloggerPage(request):
+    blogger = request.user.blogger
     posts = blogger.post_set.all()[:5]
 
     context = {
@@ -28,8 +28,8 @@ def bloggerPage(request, pk):
 
 
 @login_required(login_url='/login/')
-def postPage(request, pk, post_id):
-    post = Post.objects.get(id=post_id)
+def postPage(request, post_id):
+    post = request.user.blogger.post_set.get(id=post_id)
 
     context = {
         'post': post,
@@ -38,15 +38,14 @@ def postPage(request, pk, post_id):
 
 
 @login_required(login_url='/login/')
-def createPost(request, pk):
-    blogger = Blogger.objects.get(id=pk)
-    form = PostForm(initial={'author': blogger})
+def createPost(request):
+    blogger = request.user.blogger
 
     if request.method == "POST":
         form = PostForm(request.POST, initial={'author': blogger})
         if form.is_valid():
             form.save()
-            return redirect(f"/blogger/{pk}")
+            return redirect(f"/blogger")
 
     context = {
         'form': form,
@@ -55,15 +54,16 @@ def createPost(request, pk):
 
 
 @login_required(login_url='/login/')
-def updatePage(request, pk, post_id):
-    post = Post.objects.get(id=post_id)
+def updatePage(request, post_id):
+    post = request.user.blogger.post_set.get(id=post_id)
+
     form = PostForm(instance=post)
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect(f"/blogger/{pk}")
+            return redirect(f"/blogger")
 
     context = {
         'form': form,
@@ -72,11 +72,12 @@ def updatePage(request, pk, post_id):
 
 
 @login_required(login_url='/login/')
-def deletePage(request, pk, post_id):
-    post = Post.objects.get(id=post_id)
+def deletePage(request, post_id):
+    post = request.user.blogger.post_set.get(id=post_id)
+
     if request.method == "POST":
         post.delete()
-        return redirect(f"/blogger/{pk}")
+        return redirect(f"/blogger")
 
     context = {
         'post': post,
