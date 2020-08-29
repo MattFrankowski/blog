@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from .models import Blogger, Post
 from .forms import PostForm, UserForm, BloggerForm
+from .decorators import unauthenticated_user
 
 
 def homePage(request):
@@ -82,7 +83,7 @@ def deletePage(request, pk, post_id):
     }
     return render(request, 'blog/delete.html', context)
 
-
+@unauthenticated_user
 def registerPage(request):
     form = UserForm()
 
@@ -101,20 +102,19 @@ def registerPage(request):
     return render(request, 'registration/register.html', context)
 
 
-def userPage(request, pk):
-    user = User.objects.get(id=pk)
+def userPage(request):
     context = {
-        "user": user,
+        "user": request.user,
     }
     return render(request, 'blog/user.html', context)
 
 
-def createBlogPage(request, pk):
-    user = User.objects.get(id=pk)
+@login_required(login_url='/login/')
+def createBlogPage(request):
 
     data = {
-        'user': user,
-        'email': user.email,
+        'user': request.user,
+        'email': request.user.email,
     }
 
     bloggerForm = BloggerForm(initial=data)

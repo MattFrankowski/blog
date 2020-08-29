@@ -15,8 +15,8 @@ urlpatterns = [
 
     path('register/', views.registerPage, name='register'),
 
-    path('user/<str:pk>', views.userPage, name='user'),
-    path('user/<str:pk>/create_blog', views.createBlogPage, name='create_blog'),
+    path('user/', views.userPage, name='user'),
+    path('user/create_blog', views.createBlogPage, name='create_blog'),
 
 
 ]

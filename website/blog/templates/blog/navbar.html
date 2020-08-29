@@ -19,9 +19,9 @@
                     {% if user.blogger %}
                         <a class="nav-item nav-link" href="{% url "create_post" user.blogger.id %}">Create Post</a>
                     {% else %}
-                        <a class="nav-item nav-link" href="{% url "create_blog" user.id %}">Create Blog</a>
+                        <a class="nav-item nav-link" href="{% url "create_blog" %}">Create Blog</a>
                     {% endif %}
-                    <a class="nav-item nav-link" href="{% url 'user' user.id %}">Account</a>
+                    <a class="nav-item nav-link" href="{% url 'user'%}">Account</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                     <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
