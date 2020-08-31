@@ -8,10 +8,14 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
           {% if user.is_authenticated %}
-              <span>Hello, {{ user.username }}</span>
+              <span class="nav-item nav-link padding">Hello, {{ user.username }}</span>
           {% else %}
-              <span>Hello, Guest</span>
+              <span class="nav-item nav-link padding">Hello, Guest</span>
           {% endif %}
+            <form action="{% url "search_results" %}" method="GET">
+              <input type="text" name="search_blogger">
+              <input type="submit" value="Search" class="btn btn-info padding">
+            </form>
       </div>
             <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link active" href="{% url "home" %}">Home<span class="sr-only">(current)</span></a>

@@ -1,0 +1,8 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    {% for blogger in bloggers %}
+        <p class="padding">{{ blogger.name }}</p>
+    {% endfor %}
+
+{% endblock %}

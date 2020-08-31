@@ -1,21 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from .models import Blogger, Post
 from .forms import PostForm, UserForm, BloggerForm
 from .decorators import unauthenticated_user
+# from .filters import BloggerFilter
 
 
 def homePage(request):
-    context = {
-
-    }
+    context = { }
     return render(request, 'blog/home.html', context)
 
 
-
+@login_required(login_url='/login/')
 def bloggerPage(request):
     blogger = request.user.blogger
     posts = blogger.post_set.all()[:5]
@@ -139,4 +137,14 @@ def aboutPage(request):
     }
     return render(request, "blog/about.html", context)
 
+
+""" Perform a search based on a given Blogger's name """
+def searchResultsPage(request):
+    bloggerName = request.GET.get("search_blogger")
+    bloggers = Blogger.objects.all().filter(name__icontains=bloggerName)
+
+    context = {
+            "bloggers": bloggers,
+        }
+    return render(request, "blog/search_results.html", context)
 

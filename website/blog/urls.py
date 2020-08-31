@@ -18,5 +18,5 @@ urlpatterns = [
     path('user/', views.userPage, name='user'),
     path('user/create_blog', views.createBlogPage, name='create_blog'),
 
-
+    path('search_results/', views.searchResultsPage, name='search_results'),
 ]
