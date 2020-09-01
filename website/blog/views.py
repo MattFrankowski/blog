@@ -66,7 +66,7 @@ def updatePage(request, post_id):
     context = {
         'form': form,
     }
-    return render(request, 'blog/update.html', context)
+    return render(request, 'blog/update_post.html', context)
 
 
 @login_required(login_url='/login/')
@@ -80,7 +80,7 @@ def deletePage(request, post_id):
     context = {
         'post': post,
     }
-    return render(request, 'blog/delete.html', context)
+    return render(request, 'blog/delete_post.html', context)
 
 @unauthenticated_user
 def registerPage(request):

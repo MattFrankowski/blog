@@ -1,6 +1,6 @@
 .title-row{
     font-size: 40px;
-    color: whitesmoke;
+    color: black;
     padding: 30px;
 }
 
@@ -71,12 +71,13 @@
     color: white;
 }
 
-.login-container{
 
+.search_field{
+    padding: 0.5em;
 }
 
 body{
-    background-color: slategrey;
+    background-color: white;
 }
 
 a{

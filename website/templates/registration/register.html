@@ -1,18 +1,35 @@
-<h2>Sign up</h2>
+{% extends 'blog/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
     <form method="post">
         {% csrf_token %}
-        {{ form.username.label }}
-        {{ form.username }}
+        <div class="container-fluid">
+            <h2>Sign up</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form.username|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form.email|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form.password1|as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form.password2|as_crispy_field }}
+                </div>
+            </div>
 
-        {{ form.email.label }}
-        {{ form.email }}
-
-        {{ form.password1.label }}
-        {{ form.password1 }}
-
-        {{ form.password2.label }}
-        {{ form.password2 }}
-
-    <button type="submit">Sign up</button>
-
+            <button  class="btn btn-success" type="submit">Sign up</button>
+        </div>
     </form>
+{% endblock %}

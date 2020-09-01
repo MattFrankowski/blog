@@ -1,15 +1,16 @@
 {% extends "blog/base.html" %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         {{ bloggerForm.name.label }}
-        {{ bloggerForm.name }}
+        {{ bloggerForm.name|as_crispy_field }}
 
         {{ bloggerForm.photo.label }}
-        {{ bloggerForm.photo }}
+        {{ bloggerForm.photo|as_crispy_field }}
 
         {{ bloggerForm.user.as_hidden }}
         {{ bloggerForm.email.as_hidden }}

@@ -1,23 +1,25 @@
 {% extends 'blog/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 <form method="post">
     {% csrf_token %}
-    <div class="container-fluid login-container">
+    <div class="container-fluid">
         <h2>Login</h2>
         <div class="row">
-            <div class="col-md-4 padding">
-                {{ form.username }}
+            <div class="col-md-4 ">
+                {{ form.username|as_crispy_field }}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 padding">
-                {{ form.password }}
+            <div class="col-md-4 ">
+                {{ form.password|as_crispy_field }}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 padding">
+            <div class="col-md-4 ">
                     <p>Forgot password? Reset it<a href="{% url 'password_reset' %}"> here</a></p>
                     {{ form.errors }}
                     <button type="submit">Login</button>
