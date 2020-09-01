@@ -16,7 +16,7 @@ def homePage(request):
 @login_required(login_url='/login/')
 def bloggerPage(request):
     blogger = request.user.blogger
-    posts = blogger.post_set.all()[:5]
+    posts = blogger.post_set.all()
 
     context = {
         'blogger': blogger,
@@ -38,9 +38,9 @@ def postPage(request, post_id):
 @login_required(login_url='/login/')
 def createPost(request):
     blogger = request.user.blogger
-
+    form = PostForm(initial={'author': blogger})
     if request.method == "POST":
-        form = PostForm(request.POST, initial={'author': blogger})
+        form = PostForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect(f"/blogger")
@@ -148,3 +148,22 @@ def searchResultsPage(request):
         }
     return render(request, "blog/search_results.html", context)
 
+
+def bloggerVisitPage(request, pk):
+    blogger = Blogger.objects.get(id=pk)
+    posts = blogger.post_set.all()
+
+    context = {
+        "blogger": blogger,
+        "posts": posts,
+    }
+    return render(request, "blog/blogger_visit.html", context)
+
+
+def postVisitPage(request, pk, post_id):
+    post = Blogger.objects.get(id=pk).post_set.get(id=post_id)
+
+    context = {
+        "post": post,
+    }
+    return render(request, "blog/post_visit.html", context)

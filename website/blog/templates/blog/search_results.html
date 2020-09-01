@@ -2,7 +2,9 @@
 
 {% block content %}
     {% for blogger in bloggers %}
-        <p class="padding">{{ blogger.name }}</p>
+        <a href="{% url "blogger_visit" blogger.id %}">
+            <p class="padding">{{ blogger.name }}</p>
+        </a>
     {% endfor %}
 
 {% endblock %}
