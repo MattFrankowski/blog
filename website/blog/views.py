@@ -90,8 +90,8 @@ def registerPage(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get("username")
-            messages.success(request, "Account created for " + user)
+            username = form.cleaned_data.get("username")
+            messages.success(request, "Account created for " + username)
             return redirect('login')
 
     context = {
@@ -101,6 +101,7 @@ def registerPage(request):
     return render(request, 'registration/register.html', context)
 
 
+@login_required(login_url='/login/')
 def userPage(request):
     context = {
         "user": request.user,

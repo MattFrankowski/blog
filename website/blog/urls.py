@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.homePage, name='home'),
     path('blogger/', views.bloggerPage, name='blogger'),
     path('blogger/create_post', views.createPost, name="create_post"),
+    path('blogger/create_post', views.createPost, name="create_post"),
 
     path('blogger/post/<str:post_id>', views.postPage, name='post'),
     path('blogger/post/<str:post_id>/update', views.updatePage, name='update_post'),
@@ -21,6 +22,7 @@ urlpatterns = [
 
     path('user/', views.userPage, name='user'),
     path('user/create_blog', views.createBlogPage, name='create_blog'),
+
 
     path('search_results/', views.searchResultsPage, name='search_results'),
 ]
