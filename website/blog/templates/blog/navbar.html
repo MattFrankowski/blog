@@ -13,14 +13,10 @@
               <span class="nav-item nav-link padding">Hello, Guest</span>
           {% endif %}
             <form action="{% url "search_results" %}" method="GET">
-                {% comment %}
-              <input type="text" name="search_blogger">
-              <input type="submit" value="Search" class="btn btn-info padding">
-              {% endcomment %}
                 <div class="input-group search_field">
                     <input type="text" class="form-control"  name="search_blogger" placeholder="Blogger's name...">
                     <div class="input-group-append">
-                        <input type="submit" value="Search" class="btn btn-success">
+                        <input type="submit" value="Search" class="btn btn-outline-success">
                     </div>
                 </div>
             </form>

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Blogger(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    bio = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField()
     photo = models.ImageField(upload_to="profile_pics", default="profile_pics/unnamed.png", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)

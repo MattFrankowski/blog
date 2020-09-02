@@ -2,14 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Blogger, Post
+from .models import Blogger
 from .forms import PostForm, UserForm, BloggerForm
 from .decorators import unauthenticated_user
-# from .filters import BloggerFilter
 
 
 def homePage(request):
-    context = { }
+    bloggers = Blogger.objects.all().order_by("-date_created")[:3]
+    context = {
+        "bloggers": bloggers,
+    }
     return render(request, 'blog/home.html', context)
 
 

@@ -1,10 +1,6 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-    {% for blogger in bloggers %}
-        <a href="{% url "blogger_visit" blogger.id %}">
-            <p class="padding">{{ blogger.name }}</p>
-        </a>
-    {% endfor %}
-
+    <h4 class="display-4 padding">{{ bloggers.count }} Profiles Found:</h4>
+    {% include "blog/users_card.html" %}
 {% endblock %}

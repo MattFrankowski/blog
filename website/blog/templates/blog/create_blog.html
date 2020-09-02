@@ -10,6 +10,7 @@
             <div class="p-1 bd-highlight user-form">
                 <div class="padding">
                     {{ bloggerForm.name|as_crispy_field }}
+                    {{ bloggerForm.bio|as_crispy_field }}
                     {{ bloggerForm.photo|as_crispy_field }}
                     {{ bloggerForm.email.as_hidden }}
                     {{ bloggerForm.user.as_hidden }}

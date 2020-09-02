@@ -5,7 +5,7 @@
     <div class="item-row">
         <p>{{post.content}}</p>
         <div class="date-created">
-            {{ post.date_created }}
+            {{ post.date_created|date:"d/m/Y fA" }}
         </div>
     {% block manage_post %}
         {% if user.is_authenticated %}

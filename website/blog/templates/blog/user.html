@@ -10,7 +10,6 @@
             <div class="col-md-6 user-field">
                 <p>Username: {{ user.username }}</p>
                 <p>Email: {{ user.email }}</p>
-                <a href="{% url "edit_user" %}" class="btn btn-info">Change personal information</a>
                 <a href="{% url "password_reset" %}" class="btn btn-warning">Change password</a>
             </div>
         </div>
