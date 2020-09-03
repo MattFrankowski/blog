@@ -8,6 +8,9 @@ from .decorators import unauthenticated_user
 
 
 def homePage(request):
+    """
+    Home Page view
+    """
     bloggers = Blogger.objects.all().order_by("-date_created")[:3]
     context = {
         "bloggers": bloggers,
@@ -17,6 +20,9 @@ def homePage(request):
 
 @login_required(login_url='/login/')
 def bloggerPage(request):
+    """
+    Blogger Page view. Get logged Blogger and retrieve Posts
+    """
     blogger = request.user.blogger
     posts = blogger.post_set.all()
 
@@ -29,6 +35,9 @@ def bloggerPage(request):
 
 @login_required(login_url='/login/')
 def postPage(request, post_id):
+    """
+    Post Page view. Get certain Post object.
+    """
     post = request.user.blogger.post_set.get(id=post_id)
 
     context = {
@@ -39,6 +48,9 @@ def postPage(request, post_id):
 
 @login_required(login_url='/login/')
 def createPost(request):
+    """
+    Create Post view. Author field is already filled in a form.
+    """
     blogger = request.user.blogger
     form = PostForm(initial={'author': blogger})
     if request.method == "POST":
@@ -55,8 +67,10 @@ def createPost(request):
 
 @login_required(login_url='/login/')
 def updatePage(request, post_id):
+    """
+    Update Post view.
+    """
     post = request.user.blogger.post_set.get(id=post_id)
-
     form = PostForm(instance=post)
 
     if request.method == "POST":
@@ -73,6 +87,9 @@ def updatePage(request, post_id):
 
 @login_required(login_url='/login/')
 def deletePage(request, post_id):
+    """
+    Delete Post view
+    """
     post = request.user.blogger.post_set.get(id=post_id)
 
     if request.method == "POST":
@@ -86,6 +103,9 @@ def deletePage(request, post_id):
 
 @unauthenticated_user
 def registerPage(request):
+    """
+    Register User view. Uses UserForm
+    """
     form = UserForm()
 
     if request.method == "POST":
@@ -105,6 +125,9 @@ def registerPage(request):
 
 @login_required(login_url='/login/')
 def userPage(request):
+    """
+    View displays User information
+    """
     context = {
         "user": request.user,
     }
@@ -113,7 +136,9 @@ def userPage(request):
 
 @login_required(login_url='/login/')
 def createBlogPage(request):
-
+    """
+    Create Blog view. Uses BloggerForm
+    """
     data = {
         'user': request.user,
         'email': request.user.email,
@@ -135,14 +160,19 @@ def createBlogPage(request):
 
 
 def aboutPage(request):
+    """
+    About Page view.
+    """
     context = {
 
     }
     return render(request, "blog/about.html", context)
 
 
-""" Perform a search based on a given Blogger's name """
 def searchResultsPage(request):
+    """
+    Perform a Blogger search based on a given name
+    """
     bloggerName = request.GET.get("search_blogger")
     bloggers = Blogger.objects.all().filter(name__icontains=bloggerName)
 
@@ -153,6 +183,9 @@ def searchResultsPage(request):
 
 
 def bloggerVisitPage(request, pk):
+    """
+    Blogger Visit view. User cannot edit an object as a visitor.
+    """
     blogger = Blogger.objects.get(id=pk)
     posts = blogger.post_set.all()
 
@@ -164,6 +197,9 @@ def bloggerVisitPage(request, pk):
 
 
 def postVisitPage(request, pk, post_id):
+    """
+    Post Visit view. User cannot edit an object as a visitor.
+    """
     post = Blogger.objects.get(id=pk).post_set.get(id=post_id)
 
     context = {

@@ -6,14 +6,12 @@
         <span class="title-row">{{blogger.name}}'s Blog</span>
     </div>
     <div class="item-row">
-    {% block post %}
-    {% for post in posts %}
-        <p><a href="{% url 'post' post.id %}">{{post.title}}</a></p>
-    {% endfor %}
-    {% endblock %}
+        {% block post %}
+            {% for post in posts %}
+                <p><a href="{% url 'post' post.id %}">{{post.title}}</a></p>
+            {% endfor %}
+        {% endblock %}
     </div>
-
-
 {% endblock %}
 
 
