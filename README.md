@@ -7,7 +7,7 @@
 ## General info
 This projects lets an User create his own blog.\
 Project features:
-* User authentication system ([Login](#login), [Register](#register), [password change](#password-change)).
+* User authentication system ([Login](#login), [Register](#register), [Password Change](#password-change)).
 * Page restrictions for not logged Users -  using Django decorators.
 * Blogger has ability to Create, Edit and Delete his posts. - CRUD functionality.
 * Blogger create form, ability to set a profile photo.
