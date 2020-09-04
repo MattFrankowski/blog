@@ -25,10 +25,19 @@ To run this project locally clone this repository:
 ```
 $ git clone https://github.com/MattFrankowski/show_yourself.git
 ```
-Then move to the project directory and activate a Virtual Enviroment:
+
+Install and activate Virtual Enviroment:
 ```
-$ myvenv\Scripts\activate
+$ pip install virtualenv
+$ virtualenv myvenv
+$ myvenv\Scripts\activate 
 ```
+
+Install the dependencies:
+```
+$ pip install -r requirements.txt
+```
+
 Next, navigate to show_yourself/website directory and in command line type:
 ```
 $ python manage.py makemigrations
