@@ -1,4 +1,5 @@
 # ShowYourself - Blog app
+![Home Page 1](screenshots/screenshot1.png)
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
