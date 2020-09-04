@@ -1,12 +1,11 @@
 # ShowYourself - Blog app
-![Home Page 1](screenshots/screenshot1.png)
+![Home Page 1](screenshots/main_page.gif)
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
 ## General info
-This projects lets an User to create his own Blog. User after creating an account gains ability to create and publish their own posts and also visit other Bloggers profiles.
-Each Blogger can set profile his own profile picture and a bio.
+This projects lets an User create his own blog.
 ## Technologies
 Project is created with:
 * Python 3.8
