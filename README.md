@@ -5,7 +5,13 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 ## General info
-This projects lets an User create his own blog.
+This projects lets an User create his own blog.\
+Project features:
+* User authentication system ([Login](#login), [Register](#register), [password change](#password-change)).
+* Page restrictions for not logged Users -  using Django decorators.
+* Blogger has ability to Create, Edit and Delete his posts. - CRUD functionality.
+* Search Blogger by given name.
+* Website is fully responsible.
 ## Technologies
 Project is created with:
 * Python 3.8
@@ -31,3 +37,12 @@ $ python manage.py runserver
 Open browser and go to adress http://127.0.0.1:8000/
 
 Website is now running!
+
+## Login
+![Login](screenshots/login.png)
+
+## Register
+![Register](screenshots/register.png)
+
+## Password change
+When project is run locally emails for password resseting are sent to *sent_emails* directory as .txt file
