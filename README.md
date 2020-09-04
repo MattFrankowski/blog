@@ -29,7 +29,7 @@ Then move to the project directory and activate a Virtual Enviroment:
 ```
 $ myvenv\Scripts\activate
 ```
-Next, navigate project1/website directory and in command line type:
+Next, navigate to show_yourself/website directory and in command line type:
 ```
 $ python manage.py makemigrations
 $ python manage.py migrate
