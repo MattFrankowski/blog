@@ -1,0 +1,5 @@
+{% extends "blog/post.html" %}
+
+{% block manage_post %}
+    <a type="button" class="btn btn-dark" href="{% url 'blogger_visit' post.author.id %}">Back</a>
+{% endblock %}
