@@ -5,7 +5,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 ## General info
-This projects lets an User create his own blog.\
+This projects lets an User create his own blog and discover other people's blogs.\
 Project features:
 * User authentication system ([Login](#login), [Register](#register), [Password Change](#password-change)).
 * Page restrictions for not logged Users -  using Django decorators.
