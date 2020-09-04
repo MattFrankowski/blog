@@ -23,7 +23,7 @@ Project is created with:
 ## Setup
 To run this project locally clone this repository:
 ```
-$ git clone https://github.com/MattFrankowski/blog.git
+$ git clone https://github.com/MattFrankowski/show_yourself.git
 ```
 Then move to the project directory and activate a Virtual Enviroment:
 ```
