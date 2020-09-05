@@ -39,9 +39,11 @@ def postPage(request, post_id):
     Post Page view. Get certain Post object.
     """
     post = request.user.blogger.post_set.get(id=post_id)
-
+    comments = post.comment_set.all()
+    print(comments[0].user.blogger.name)
     context = {
         'post': post,
+        'comments': comments,
     }
     return render(request, 'blog/post.html', context)
 
@@ -201,8 +203,10 @@ def postVisitPage(request, pk, post_id):
     Post Visit view. User cannot edit an object as a visitor.
     """
     post = Blogger.objects.get(id=pk).post_set.get(id=post_id)
+    comments = post.comment_set.all()
 
     context = {
         "post": post,
+        "comments": comments,
     }
     return render(request, "blog/post_visit.html", context)
