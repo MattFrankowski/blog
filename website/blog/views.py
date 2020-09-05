@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .models import Blogger
-from .forms import PostForm, UserForm, BloggerForm
+from .forms import PostForm, UserForm, BloggerForm, CommentForm
 from .decorators import unauthenticated_user
 
 
@@ -203,10 +203,24 @@ def postVisitPage(request, pk, post_id):
     Post Visit view. User cannot edit an object as a visitor.
     """
     post = Blogger.objects.get(id=pk).post_set.get(id=post_id)
-    comments = post.comment_set.all()
+    comments = post.comment_set.all().order_by("-date_created")
+
+    data = {
+        "user": request.user,
+        "post": post,
+    }
+
+    form = CommentForm(initial=data)
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, initial=data)
+        if form.is_valid():
+            form.save()
+            return redirect(f"/blogger/{pk}/post/{post_id}")
 
     context = {
         "post": post,
         "comments": comments,
+        "form": form,
     }
     return render(request, "blog/post_visit.html", context)
