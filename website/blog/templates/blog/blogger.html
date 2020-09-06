@@ -3,9 +3,9 @@
 {% block content %}
     <div class="blogger-container">
         <img class="profile-pic" src="{{ blogger.photo.url }}" alt="profile-pic">
-        <span class="title-row">{{blogger.name}}'s Blog</span>
+        <span class="title-row text-center">{{blogger.name}}'s Blog</span>
     </div>
-    <div class="item-row">
+    <div class="item-row text-center">
         {% block post %}
             {% for post in posts %}
                 <p><a href="{% url 'post' post.id %}">{{post.title}}</a></p>

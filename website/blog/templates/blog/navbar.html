@@ -26,6 +26,7 @@
                 {% if user.is_authenticated %}
                     {% if user.blogger %}
                         <a class="nav-item nav-link" href="{% url "create_post" %}">Create Post</a>
+                        <a class="nav-item nav-link" href="{% url "blogger" %}">My Blog</a>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url "create_blog" %}">Create Blog</a>
                     {% endif %}
