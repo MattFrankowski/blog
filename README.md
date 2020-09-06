@@ -1,5 +1,5 @@
 # ShowYourself - Blog app
-![Home Page 1](screenshots/main_page.gif)
+![Home Page 1](screenshots/show_yourself.gif)
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
@@ -10,6 +10,7 @@ Project features:
 * User authentication system ([Login](#login), [Register](#register), [Password Change](#password-change)).
 * Page restrictions for not logged Users -  using Django decorators.
 * Blogger has ability to Create, Edit and Delete his posts. - CRUD functionality.
+* Blogger can comment on other user's posts.
 * Blogger create form, ability to set a profile photo.
 * Search Blogger by given name.
 * Website is fully responsible.
