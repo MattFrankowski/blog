@@ -40,7 +40,6 @@ def postPage(request, post_id):
     """
     post = request.user.blogger.post_set.get(id=post_id)
     comments = post.comment_set.all()
-    print(comments[0].user.blogger.name)
     context = {
         'post': post,
         'comments': comments,
