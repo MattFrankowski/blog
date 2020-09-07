@@ -30,7 +30,7 @@ $ git clone https://github.com/MattFrankowski/show_yourself.git
 Install and activate Virtual Enviroment:
 ```
 $ pip install virtualenv
-$ virtualenv myvenv
+$ python virtualenv -m myvenv
 $ myvenv\Scripts\activate 
 ```
 
