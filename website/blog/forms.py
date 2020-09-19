@@ -11,7 +11,7 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author']
+        fields = ['title', 'content', 'image', 'author']
 
 
 class UserForm(UserCreationForm):
@@ -34,6 +34,7 @@ class CommentForm(ModelForm):
         model = Comment
         fields = "__all__"
 
+    # hide CommentForm labels
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

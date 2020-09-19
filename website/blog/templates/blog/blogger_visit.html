@@ -2,6 +2,6 @@
 
 {% block post %}
     {% for post in posts %}
-         <p><a href="{% url 'post_visit' post.author.id post.id %}">{{post.title}}</a></p>
+        <a href="{% url 'post_visit' post.author.id post.id %}" class="btn btn-primary">See more</a>
     {% endfor %}
 {% endblock %}a

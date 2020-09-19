@@ -11,6 +11,7 @@
                     <div class="title-row">Create Post</div>
                     {{ form.title|as_crispy_field }}
                     {{ form.content|as_crispy_field }}
+                    {{ form.image|as_crispy_field }}
                     {{ form.author.as_hidden }}
                     <button class="btn btn-success" type="submit">Submit Post</button>
                 </div>
