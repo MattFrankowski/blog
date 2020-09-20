@@ -4,10 +4,12 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [API](#api)
 ## General info
 This projects lets an User create his own blog and discover other people's blogs.\
 Project features:
 * User authentication system ([Login](#login), [Register](#register), [Password Change](#password-change)).
+* API created with Django REST Framework
 * Page restrictions for not logged Users -  using Django decorators.
 * Blogger has ability to Create, Edit and Delete his posts. - CRUD functionality.
 * Blogger can comment on other user's posts.
@@ -18,9 +20,11 @@ Project features:
 Project is created with:
 * Python 3.8
 * Django 3.1
+* Django REST Framework
 * HTML
 * CSS
 * Bootstrap 4
+* Unit tests written in Pythin's unittest module
 ## Setup
 To run this project locally clone this repository:
 ```
