@@ -62,7 +62,7 @@ http://127.0.0.1:8000/api/post_list/
 
 Endpoint to get a particular Post object information:
 
-http://127.0.0.1:8000/api/post/<int:post_id>/
+http://127.0.0.1:8000/api/post/<<int:post_id>>/
 
 Sample Post info in JSON format:
 ```json
