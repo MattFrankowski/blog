@@ -1,41 +1,70 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="item-row">
-            <p class="display-4 text-center">{{ post.title }}</p>
-            <hr>
-            {% if post.image %}
-                <div class="post-pic">
-                    <img src="{{ post.image.url }}" alt="profile-pic">
+    <div class="container-fluid padding">
+        <div class="row">
+            <div class="col-md">
+                <p class="display-4 text-center">{{ post.title }}</p>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="col-md-10 padding border">
+                {% if post.image %}
+                    <div class="text-center padding">
+                        <img src="{{ post.image.url }}" class="mb-2">
+                    </div>
+                {% endif %}
+                <p>{{ post.content }}</p>
+            </div>
+            <div class="col-md-2 border padding w-100">
+                <p>Author: {{ post.author }}</p>
+                <p>{{ post.date_created|date:"d/m/Y fA" }}</p>
+                <div class="btn-group">
+                    <a type="button" class="btn btn-dark" href="{% url 'blogger' %}">Back</a><br>
+                    <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a><br>
+                    <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
                 </div>
-            {% endif %}
-            <p>{{post.content}}</p>
-            <div class="text-center">
-                <span class="date-created">{{ post.date_created|date:"d/m/Y fA" }}</span>
             </div>
         </div>
     </div>
+{% endblock %}
 
-    {% block manage_post %}
-        {% if user.is_authenticated %}
-            <div class="text-center">
-                <a type="button" class="btn btn-dark" href="{% url 'blogger' %}">Back</a>
-                <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a>
-                <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
-            </div>
-        {% endif %}
-    {% endblock manage_post%}
-    </div>
-    <div class="item-row">
-        <p class="lead text-center">Comments:</p>
-        {% block add_comment %}
-        {% endblock %}
-        {% for comment in comments %}
-            <a href="{% url "blogger_visit" comment.user.blogger.id %}" class="comment-author">{{ comment.user.blogger.name }}</a>
-            <span class="text-left">: {{ comment.content }}</span>
-            <p class="text-right date-created">{{ comment.date_created|date:"d/m/Y fA" }}</p>
-            <hr>
-        {% endfor %}
-    </div>
-{% endblock content %}
+{#{% block content %}#}
+{#    <div class="container-fluid">#}
+{#        <div class="item-row">#}
+{#            <p class="display-4 text-center">{{ post.title }}</p>#}
+{#            <hr>#}
+{#            {% if post.image %}#}
+{#                <div class="post-pic">#}
+{#                    <img src="{{ post.image.url }}" alt="profile-pic">#}
+{#                </div>#}
+{#            {% endif %}#}
+{#            <p>{{post.content}}</p>#}
+{#            <div class="text-center">#}
+{#                <span class="date-created">{{ post.date_created|date:"d/m/Y fA" }}</span>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    {% block manage_post %}#}
+{#        {% if user.is_authenticated %}#}
+{#            <div class="text-center">#}
+{#                <a type="button" class="btn btn-dark" href="{% url 'blogger' %}">Back</a>#}
+{#                <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a>#}
+{#                <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    {% endblock manage_post%}#}
+{#    </div>#}
+{#    <div class="item-row">#}
+{#        <p class="lead text-center">Comments:</p>#}
+{#        {% block add_comment %}#}
+{#        {% endblock %}#}
+{#        {% for comment in comments %}#}
+{#            <a href="{% url "blogger_visit" comment.user.blogger.id %}" class="comment-author">{{ comment.user.blogger.name }}</a>#}
+{#            <span class="text-left">: {{ comment.content }}</span>#}
+{#            <p class="text-right date-created">{{ comment.date_created|date:"d/m/Y fA" }}</p>#}
+{#            <hr>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#{% endblock content %}#}

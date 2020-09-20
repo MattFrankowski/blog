@@ -114,23 +114,28 @@
     padding-top: 15px;
 }
 
-body{
-    background-color: whitesmoke;
-}
-
 .center{
     margin: auto;
 }
 
-.padding-bio{
-    padding: 3em 0 3em 0;
+.bio{
+    padding: 5em 0 5em 0;
 }
 
+.post-thumbnail{
+    max-height: 460px;
+    max-width: 460px;
+}
 
 .card{
     padding: 0.5em;
 }
 
-a{
-  color: #761E59;
+.card a{
+    color: #00b4d8;
+    font-weight: bold;
+    font-size: 1.1em;
 }
+
+
+

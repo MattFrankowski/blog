@@ -194,10 +194,14 @@ def bloggerVisitPage(request, pk):
     """
     blogger = Blogger.objects.get(id=pk)
     posts = blogger.post_set.all()
+    paginator = Paginator(posts, 6)  # Show 6 posts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         "blogger": blogger,
         "posts": posts,
+        "page_obj": page_obj,
     }
     return render(request, "blog/blogger_visit.html", context)
 

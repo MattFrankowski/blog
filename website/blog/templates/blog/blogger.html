@@ -8,10 +8,10 @@
                 <div class="col-md-3 text-center">
                     <img src="{{ blogger.photo.url }}" class="profile-pic" alt="profile pic">
                 </div>
-                <div class="col-md-3 center">
+                <div class="col-md-3 center text-center">
                     <p class="display-4">{{ blogger.name }}</p>
                 </div>
-                <div class="col-md-6 font-italic padding-bio">
+                <div class="col-md-6 font-italic bio">
                     <p>{{ blogger.bio }}</p>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ post.title }}</h5>
                                         {% block post %}
-                                             <p class="card-text">{{ post.content|truncatewords:5 }} <a href="{% url "post" post.id %}">see more</a></p>
+                                             <p class="card-text">{{ post.content|truncatewords:5 }} <a href="{% url "post" post.id %}">See More</a></p>
                                         {% endblock post %}
                                     </div>
                             <div class="card-footer text-muted text-center">

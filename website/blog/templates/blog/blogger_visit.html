@@ -1,7 +1,5 @@
 {% extends "blog/blogger.html" %}
 
 {% block post %}
-    {% for post in posts %}
-        <a href="{% url 'post_visit' post.author.id post.id %}" class="btn btn-primary">See more</a>
-    {% endfor %}
+    <p class="card-text">{{ post.content|truncatewords:5 }} <a href="{% url "post_visit" post.author.id post.id %}">See More</a></p>
 {% endblock %}a
