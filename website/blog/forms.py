@@ -36,6 +36,9 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = "__all__"
+        widgets = {
+            'content': Textarea(attrs={'cols': 80, 'rows': 3}),
+        }
 
     # hide CommentForm labels
     def __init__(self, *args, **kwargs):
