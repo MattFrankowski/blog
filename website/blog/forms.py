@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -11,7 +11,10 @@ class PostForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author']
+        fields = ['title', 'content', 'image', 'author']
+        widgets = {
+            'content': Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
 
 
 class UserForm(UserCreationForm):
@@ -33,7 +36,11 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = "__all__"
+        widgets = {
+            'content': Textarea(attrs={'cols': 80, 'rows': 3}),
+        }
 
+    # hide CommentForm labels
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

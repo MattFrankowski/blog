@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import Blogger
 from .forms import PostForm, UserForm, BloggerForm, CommentForm
@@ -25,10 +26,14 @@ def bloggerPage(request):
     """
     blogger = request.user.blogger
     posts = blogger.post_set.all()
+    paginator = Paginator(posts, 6)  # Show 6 posts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'blogger': blogger,
         'posts': posts,
+        'page_obj': page_obj,
     }
     return render(request, 'blog/blogger.html', context)
 
@@ -50,12 +55,12 @@ def postPage(request, post_id):
 @login_required(login_url='/login/')
 def createPost(request):
     """
-    Create Post view. Author field is already filled in a form.
+    Create Post object. Author field is already filled in a form.
     """
     blogger = request.user.blogger
     form = PostForm(initial={'author': blogger})
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect(f"/blogger")
@@ -69,16 +74,16 @@ def createPost(request):
 @login_required(login_url='/login/')
 def updatePage(request, post_id):
     """
-    Update Post view.
+    Update Post object.
     """
     post = request.user.blogger.post_set.get(id=post_id)
     form = PostForm(instance=post)
 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
-            return redirect(f"/blogger")
+            return redirect(f"/blogger/post/{post_id}")
 
     context = {
         'form': form,
@@ -89,7 +94,7 @@ def updatePage(request, post_id):
 @login_required(login_url='/login/')
 def deletePage(request, post_id):
     """
-    Delete Post view
+    Delete Post object
     """
     post = request.user.blogger.post_set.get(id=post_id)
 
@@ -189,10 +194,14 @@ def bloggerVisitPage(request, pk):
     """
     blogger = Blogger.objects.get(id=pk)
     posts = blogger.post_set.all()
+    paginator = Paginator(posts, 6)  # Show 6 posts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         "blogger": blogger,
         "posts": posts,
+        "page_obj": page_obj,
     }
     return render(request, "blog/blogger_visit.html", context)
 
