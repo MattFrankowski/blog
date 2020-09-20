@@ -19,11 +19,15 @@
             <div class="col-md-2 border p-3 w-100">
                 <p>Author: {{ post.author }}</p>
                 <p>{{ post.date_created|date:"d/m/Y fA" }}</p>
-                <div class="btn-group">
-                    <a type="button" class="btn btn-dark" href="{% url 'blogger' %}">Back</a><br>
-                    <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a><br>
-                    <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
-                </div>
+                {% block manage_post %}
+                    {% if user.is_authenticated %}
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-dark" href="{% url 'blogger' %}">Back</a><br>
+                            <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a><br>
+                            <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+                         </div>
+                    {% endif %}
+                {% endblock %}
             </div>
         </div>
         <div class="row pt-3 pr-3 pl-3">
@@ -36,16 +40,12 @@
             </div>
         </div>
         <div class="row pr-3 pl-3">
-            <div class="col-md border pd-3">
+            <div class="col-md border pd-3 pt-3">
                 {% for comment in comments %}
-                    <div>
-                        <p class="text-left">
-                            <a href="{% url "blogger_visit" comment.user.blogger.id %}" class="font-weight-bold">{{ comment.user.blogger.name }}</a>
-                            : {{ comment.content }}
-                        </p>
-                        <p class="text-right date-created">{{ comment.date_created|date:"d/m/Y fA" }}</p>
+                        <a href="{% url "blogger_visit" comment.user.blogger.id %}" class="font-weight-bold">{{ comment.user.blogger.name }}</a>
+                        <span>: {{ comment.content }}</span>
+                        <p class="text-right date">{{ comment.date_created|date:"d/m/Y fA" }}</p>
                         <hr>
-                    </div>
                 {% endfor %}
             </div>
         </div>

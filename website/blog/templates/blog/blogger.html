@@ -27,7 +27,7 @@
                                     <img class="card-img-top post-thumbnail" src="{{ post.image.url }}" alt="post image thumbnail">
                                 {% endif %}
                                     <div class="card-body">
-                                        <h5 class="card-title text-center">{{ post.title }}</h5>
+                                        <h5 class="card-title text-center">{{ post.title }}</h5><hr>
                                         {% block post %}
                                              <p class="card-text">{{ post.content|truncatewords:5 }} <a href="{% url "post" post.id %}">See More</a></p>
                                         {% endblock post %}
