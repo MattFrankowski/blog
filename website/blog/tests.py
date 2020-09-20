@@ -4,7 +4,7 @@ from django.conf import settings
 import os
 from datetime import datetime
 
-from .models import Blogger
+from .models import Blogger, Post, Comment
 
 class SigninTestCase(TestCase):
 
@@ -39,6 +39,9 @@ class BloggerTestCase(TestCase):
                                               date_created=datetime.now()
                                               )
 
+    def tearDown(self):
+        self.blogger.delete()
+
     def test_user(self):
         user = authenticate(username=self.blogger.user.username, password=self.blogger.user.password)
         self.assertFalse(user is not None and user.is_authenticated)
@@ -60,4 +63,79 @@ class BloggerTestCase(TestCase):
         date_created = self.blogger.date_created
         self.assertTrue(isinstance(date_created, datetime))
 
-    
+
+class PostTestCase(TestCase):
+
+    def setUp(self):
+        self.post = Post.objects.create(title="Test title",
+                                        content="Test content",
+                                        image=os.path.join(settings.BASE_DIR, "static/post_images/shawn-ang-nmpW_WwwVSc-unsplash_G7cJZoJ.jpg"),
+                                        author=Blogger.objects.create(
+                                            user=get_user_model().objects.create_user(username='test', password='12test12', email='test@example.com'),
+                                            name="John Doe",
+                                            bio="Test Bio",
+                                            email="test@example.com",
+                                            photo=os.path.join(settings.BASE_DIR, "static/profile_pics/unnamed.png"),
+                                            date_created=datetime.now()
+                                            ),
+                                        date_created=datetime.now()
+                                        )
+
+    def tearDown(self):
+        self.post.delete()
+
+    def test_title(self):
+        self.assertTrue(self.post.title == "Test title")
+
+    def test_content(self):
+        self.assertTrue(self.post.content == "Test content")
+
+    def test_image(self):
+        self.assertTrue(self.post.image is not None)
+
+    def test_blogger(self):
+        author = self.post.author
+        self.assertTrue(author is not None and isinstance(author, Blogger))
+
+    def test_date(self):
+        date_created = self.post.date_created
+        self.assertTrue(isinstance(date_created, datetime))
+
+
+class CommentTestCase(TestCase):
+
+    def setUp(self):
+        self.comment = Comment.objects.create(
+            user=get_user_model().objects.create_user(username='test1', password='12test12', email='test@example.com'),
+            post=Post.objects.create(
+                title="Test title",
+                content="Test content",
+                image=os.path.join(settings.BASE_DIR, "static/post_images/shawn-ang-nmpW_WwwVSc-unsplash_G7cJZoJ.jpg"),
+                author=Blogger.objects.create(
+                    user=get_user_model().objects.create_user(username='test2', password='12test12', email='test@example.com'),
+                    name="John Doe",
+                    bio="Test Bio",
+                    email="test@example.com",
+                    photo=os.path.join(settings.BASE_DIR, "static/profile_pics/unnamed.png"),
+                    date_created=datetime.now()
+                ),
+            ),
+            content="Comment text",
+            date_created=datetime.now()
+        )
+
+    def tearDown(self):
+        self.comment.delete()
+
+    def test_user(self):
+        self.assertTrue(self.comment.user is not None)
+
+    def test_post(self):
+        self.assertTrue(self.comment.post is not None)
+
+    def test_content(self):
+        self.assertTrue(self.comment.content == "Comment text")
+
+    def test_date(self):
+        date_created = self.comment.date_created
+        self.assertTrue(isinstance(date_created, datetime))
