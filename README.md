@@ -84,3 +84,6 @@ Sample Post info in JSON format:
 
 ## Password change
 When project is run locally emails for password resseting are sent to *sent_emails* directory as .txt file
+
+## TODO
+* Social functionalities (add friends, like posts and comments)
