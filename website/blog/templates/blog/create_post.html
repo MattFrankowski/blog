@@ -3,14 +3,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="d-flex flex-column align-items-center padding">
             <div class="p-1 bd-highlight user-form">
                 <div class="padding">
                     <div class="title-row">Create Post</div>
+                    {{ form.media }}
                     {{ form.title|as_crispy_field }}
-                    {{ form.content|as_crispy_field }}
+                    {{ form.content }}
                     <div class="text-center mb-3">
                         {{ form.image }}
                     </div>
