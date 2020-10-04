@@ -2,25 +2,26 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 from .models import Blogger, Post
 from .forms import PostForm, UserForm, BloggerForm, CommentForm
 from .decorators import unauthenticated_user
 
 
-def homePage(request):
-    """
-    Home Page view
-    """
-    bloggers = Blogger.objects.all().order_by("-date_created")[:3]
-    context = {
-        "bloggers": bloggers,
-    }
-    return render(request, 'blog/home.html', context)
+class HomeListView(ListView):
+    model = Blogger
+    context_object_name = "bloggers"
+    template_name = "blog/home.html"
+
+    def get_queryset(self):
+        return Blogger.objects.all().order_by("-date_created")[:3]
 
 
 @login_required(login_url='/login/')
-def bloggerPage(request):
+def bloggerView(request):
     """
     Blogger Page view. Get logged Blogger and retrieve Posts
     """
@@ -39,7 +40,7 @@ def bloggerPage(request):
 
 
 @login_required(login_url='/login/')
-def postPage(request, post_id):
+def postView(request, post_id):
     """
     Post Page view. Get certain Post object.
     """
@@ -52,63 +53,35 @@ def postPage(request, post_id):
     return render(request, 'blog/post.html', context)
 
 
-@login_required(login_url='/login/')
-def createPost(request):
-    """
-    Create Post object. Author field is already filled in a form.
-    """
-    blogger = request.user.blogger
-    form = PostForm(initial={'author': blogger})
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect(f"/blogger")
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "blog/create_post.html"
+    success_url = reverse_lazy("blogger")
+    login_url = "/login"
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'blog/create_post.html', context)
+    def get_initial(self, **kwargs):
+        initial = super(PostCreateView, self).get_initial(**kwargs)
+        initial["author"] = self.request.user.blogger
+        return initial
 
 
-@login_required(login_url='/login/')
-def updatePage(request, post_id):
-    """
-    Update Post object.
-    """
-    post = request.user.blogger.post_set.get(id=post_id)
-    form = PostForm(instance=post)
-
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect(f"/blogger/post/{post_id}")
-
-    context = {
-        'form': form,
-    }
-    return render(request, 'blog/update_post.html', context)
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ["title", "content", "image"]
+    template_name = "blog/update_post.html"
+    login_url = "/login"
 
 
-@login_required(login_url='/login/')
-def deletePage(request, post_id):
-    """
-    Delete Post object
-    """
-    post = request.user.blogger.post_set.get(id=post_id)
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "blog/delete_post.html"
+    success_url = reverse_lazy("blogger")
+    login_url = "/login"
 
-    if request.method == "POST":
-        post.delete()
-        return redirect(f"/blogger")
-
-    context = {
-        'post': post,
-    }
-    return render(request, 'blog/delete_post.html', context)
 
 @unauthenticated_user
-def registerPage(request):
+def registerView(request):
     """
     Register User view. Uses UserForm
     """
@@ -130,7 +103,7 @@ def registerPage(request):
 
 
 @login_required(login_url='/login/')
-def userPage(request):
+def userView(request):
     """
     View displays User information
     """
@@ -141,7 +114,7 @@ def userPage(request):
 
 
 @login_required(login_url='/login/')
-def createBlogPage(request):
+def createBlogView(request):
     """
     Create Blog view. Uses BloggerForm
     """
@@ -165,17 +138,11 @@ def createBlogPage(request):
     return render(request, "blog/create_blog.html", context)
 
 
-def aboutPage(request):
-    """
-    About Page view.
-    """
-    context = {
-
-    }
-    return render(request, "blog/about.html", context)
+class AboutView(TemplateView):
+    template_name = "blog/about.html"
 
 
-def searchResultsPage(request):
+def searchResultsView(request):
     """
     Perform a Blogger search based on a given name
     """
@@ -188,7 +155,7 @@ def searchResultsPage(request):
     return render(request, "blog/search_results.html", context)
 
 
-def bloggerVisitPage(request, pk):
+def bloggerVisitView(request, pk):
     """
     Blogger Visit view. User cannot edit an object as a visitor.
     """
@@ -206,7 +173,7 @@ def bloggerVisitPage(request, pk):
     return render(request, "blog/blogger_visit.html", context)
 
 
-def postVisitPage(request, pk, post_id):
+def postVisitView(request, pk, post_id):
     """
     Post Visit view. User cannot edit an object as a visitor.
     """
