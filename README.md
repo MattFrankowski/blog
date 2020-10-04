@@ -12,6 +12,7 @@ Project features:
 * API created with Django REST Framework.
 * Page restrictions for not logged Users -  using Django decorators.
 * Blogger has ability to Create, Edit and Delete his posts. - CRUD functionality.
+* Project is using rich text editor to style blog posts.
 * Blogger can comment on other user's posts.
 * Blogger create form, ability to set a profile photo.
 * Search Blogger by given name.
