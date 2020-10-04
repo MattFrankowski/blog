@@ -29,7 +29,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title text-center">{{ post.title }}</h5><hr>
                                         {% block post %}
-                                             <p class="card-text">{{ post.content|truncatewords:5 }} <a href="{% url "post" post.id %}">See More</a></p>
+                                             <p class="card-text">{{ post.content|truncatewords:5|safe }} <a href="{% url "post" post.id %}">See More</a></p>
                                         {% endblock post %}
                                     </div>
                             <div class="card-footer text-muted text-center">
@@ -60,22 +60,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-
-
-{#{% block content %}#}
-{#    <div class="blogger-container">#}
-{#        <img class="profile-pic" src="{{ blogger.photo.url }}" alt="profile-pic">#}
-{#        <span class="title-row text-center">{{blogger.name}}'s Blog</span>#}
-{#    </div>#}
-{#    <div class="item-row text-center">#}
-{#        {% block post %}#}
-{#            {% for post in posts %}#}
-{#                <p><a href="{% url 'post' post.id %}">{{post.title}}</a></p>#}
-{#            {% endfor %}#}
-{#        {% endblock %}#}
-{#    </div>#}
-{#{% endblock %}#}
-
-

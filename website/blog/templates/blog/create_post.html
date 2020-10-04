@@ -9,8 +9,9 @@
             <div class="p-1 bd-highlight user-form">
                 <div class="padding">
                     <div class="title-row">Create Post</div>
+                    {{ form.media }}
                     {{ form.title|as_crispy_field }}
-                    {{ form.content|as_crispy_field }}
+                    {{ form.content }}
                     <div class="text-center mb-3">
                         {{ form.image }}
                     </div>

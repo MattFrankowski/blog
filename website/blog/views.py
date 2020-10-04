@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
-from .models import Blogger
+from .models import Blogger, Post
 from .forms import PostForm, UserForm, BloggerForm, CommentForm
 from .decorators import unauthenticated_user
 

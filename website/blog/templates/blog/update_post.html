@@ -9,8 +9,9 @@
         <div class="d-flex flex-column align-items-center padding">
             <div class="p-1 bd-highlight user-form">
                 <div class="padding">
+                    {{ form.media }}
                     {{ form.title|as_crispy_field }}
-                    {{ form.content|as_crispy_field }}
+                    {{ form.content }}
                     {{ form.image|as_crispy_field }}
                     {{ form.author.as_hidden }}
                     <button class="btn btn-success" type="submit">Edit Post</button>
