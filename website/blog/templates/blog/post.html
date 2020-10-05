@@ -26,6 +26,9 @@
                             <a type="button" class="btn btn-info" href="{% url 'update_post' post.id %}">Update</a><br>
                             <a type="button" class="btn btn-danger" href="{% url 'delete_post' post.id %}">Delete</a>
                          </div>
+                        <div class="pt-3">
+                            Likes: {{ post.likes.count }}
+                        </div>
                     {% endif %}
                 {% endblock %}
             </div>

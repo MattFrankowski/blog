@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 
 
 class Blogger(models.Model):
@@ -21,12 +22,17 @@ class Post(models.Model):
     image = models.ImageField(upload_to="post_images", blank=True, null=True)
     author = models.ForeignKey(Blogger, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return f"/blogger/post/{self.id}"
+        return reverse("post", kwargs={"pk": self.id})
+
+    def get_like_url(self):
+        blogger_id = self.author.id
+        return reverse("post_visit", kwargs={"blogger_id": blogger_id, "pk": self.id})
 
 
 class Comment(models.Model):

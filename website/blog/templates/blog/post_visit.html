@@ -4,6 +4,9 @@
 
 {% block manage_post %}
     <a type="button" class="btn btn-dark" href="{% url 'blogger_visit' post.author.id %}">Back</a>
+    <div class="pt-3">
+        Likes: {{ post.likes.count }} <a href="{% url "like_toggle" post.author.id post.id %}"> Like</a>
+    </div>
 {% endblock %}
 {% block add_comment %}
         <form method="POST" action="">

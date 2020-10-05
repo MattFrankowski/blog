@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView, DetailView
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView, TemplateView, RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -40,17 +40,30 @@ def bloggerView(request):
 
 
 @login_required(login_url='/login/')
-def postView(request, post_id):
+def postView(request, pk):
     """
     Post Page view. Get certain Post object.
     """
-    post = request.user.blogger.post_set.get(id=post_id)
+    post = request.user.blogger.post_set.get(id=pk)
     comments = post.comment_set.all()
     context = {
         'post': post,
         'comments': comments,
     }
     return render(request, 'blog/post.html', context)
+
+
+class LikeToggleView(LoginRequiredMixin ,RedirectView):
+    login_url = "/login"
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, id=self.kwargs["pk"])
+        url_ = post.get_like_url()
+        user = self.request.user
+        if user in post.likes.all():
+            post.likes.remove(user)
+        else:
+            post.likes.add(user)
+        return url_
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -173,11 +186,11 @@ def bloggerVisitView(request, pk):
     return render(request, "blog/blogger_visit.html", context)
 
 
-def postVisitView(request, pk, post_id):
+def postVisitView(request, blogger_id, pk):
     """
     Post Visit view. User cannot edit an object as a visitor.
     """
-    post = Blogger.objects.get(id=pk).post_set.get(id=post_id)
+    post = Blogger.objects.get(id=blogger_id).post_set.get(id=pk)
     comments = post.comment_set.all().order_by("-date_created")
 
     data = {
@@ -191,7 +204,7 @@ def postVisitView(request, pk, post_id):
         form = CommentForm(request.POST, initial=data)
         if form.is_valid():
             form.save()
-            return redirect(f"/blogger/{pk}/post/{post_id}")
+            return redirect(f"/blogger/{blogger_id}/post/{pk}")
 
     context = {
         "post": post,
