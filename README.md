@@ -16,7 +16,7 @@ Project features:
 * Blogger can comment on other user's posts.
 * Blogger create form, ability to set a profile photo.
 * Search Blogger by given name.
-* Website is fully responsible.
+* Website is fully responsive.
 ## Technologies
 Project is created with:
 * Python 3.8
